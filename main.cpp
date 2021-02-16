@@ -4,7 +4,7 @@
 #include <cmath>
 
 class Date {
-private:
+protected:
     int day;
     int month;
     int year;
@@ -25,12 +25,11 @@ public:
 };
 
 class Blood{
-  private:
+  public:
     int systolic;
     int diastolic;
     Date dat;
 
-  public:
     Blood(int sys, int dia, Date dat): systolic(sys), diastolic(dia), dat(dat){
     
   } 
@@ -53,9 +52,11 @@ class Blood{
 };
 
 class Patient {
-  private:
+  protected:
     std::string name;
-    std::vector <Blood> vect;
+    std::vector <Blood> vect_normal;
+    std::vector <Blood> vect_abnormal;
+    float avg;
 
   public:
     Patient(std::string n){
@@ -63,7 +64,20 @@ class Patient {
     }
 
     void addRecord(Blood k){
-      vect.push_back(k);
+      vect_normal.push_back(k);
+      if(k.systolic>140){
+        vect_abnormal.push_back(k);
+      }
+    }
+
+    std::vector <Blood> vect_maxsystolic(){
+      int maxsys = 0;
+      std::vector<Blood> sub_maxsystolic;
+
+      for(std::vector<Blood>::const_iterator it = vect_abnormal.begin(); it != vect_abnormal.end(); ++it){
+        
+      }
+
     }
 
     void printReport() {
