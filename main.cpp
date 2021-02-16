@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include <bits/stdc++.h> 
 
 class Date {
 private:
@@ -25,12 +26,11 @@ public:
 };
 
 class Blood{
-  private:
+  public:
     int systolic;
     int diastolic;
     Date dat;
 
-  public:
     Blood(int sys, int dia, Date dat): systolic(sys), diastolic(dia), dat(dat){
     
   } 
@@ -56,7 +56,6 @@ class Patient {
   private:
     std::string name;
     std::vector <Blood> vect;
-    std::vector <Blood> abnormal;
 
   public:
     Patient(std::string n){
@@ -66,22 +65,44 @@ class Patient {
     void addRecord(Blood k){
       vect.push_back(k);
     }
+    
+
 
     void printReport() {
-      //the highest abnormal systolic blood pressures, together with the corresponding diastolic value, and the day it has been measured;
-      int j=0;
+      int j=0, maxsystolic = 0;
       double avg= 0;
+      std::vector<Blood> maxpressures;
       std::cout << "Report of: "<< name << std::endl; 
       for(int i=0;i<vect.size();i++){
+
         avg+=vect[i].getDiastolic();
+
+        if(vect[i].getSystolic() > maxsystolic){
+          maxpressures.clear();
+          maxpressures.push_back(vect[i]);
+          maxsystolic = vect[i].getSystolic();
+        
+        } else if(vect[i].getSystolic() == maxsystolic) {
+          maxpressures.push_back(vect[i]);
+        
+        }
+        
+
         if(vect[i].getSystolic()>140){
-          std::cout<<"The systolic pressure was high this day: \n";
+          std::cout<<"The systolic pressure was high this day. \n";
           vect[i].printBlood();
+          std::cout << "" << std::endl;
           j++;
         }
       }
+    for(int i = 0; i < maxpressures.size(); i++){
+      std::cout << "test";
+      maxpressures[i].printBlood();
+      std::cout << "" << std::endl;
+    }
     avg=avg/vect.size();
     std::cout<<"The average diastolic pressure is : " << avg <<"\n";
+    std::cout << "" << std::endl;
     if(j==0){
         std::cout<< "No measurement was not too high";
     }
