@@ -56,6 +56,7 @@ class Patient {
   private:
     std::string name;
     std::vector <Blood> vect;
+    std::vector <Blood> abnormal;
 
   public:
     Patient(std::string n){
