@@ -38,8 +38,8 @@ class Blood{
   void printBlood() {
     dat.printDate();
 
-    std::cout<<"Systolic pressure is: "<<systolic<<"\n";
-    std::cout<<"Diastolic pressure is: "<<diastolic<<"\n";
+    std::cout<<"Systolic pressure:  "<<systolic<<"\n";
+    std::cout<<"Diastolic pressure: "<<diastolic<<"\n";
   }
 
   int getSystolic(){
@@ -66,45 +66,44 @@ class Patient {
       vect.push_back(k);
     }
     
-
-
     void printReport() {
-      int j=0, maxsystolic = 0;
+      int j=0, maxSystolic = 0;
       double avg= 0;
-      std::vector<Blood> maxpressures;
+      std::vector<Blood> maxPressures;
       std::cout << "Report of: "<< name << std::endl; 
       for(int i=0;i<vect.size();i++){
 
         avg+=vect[i].getDiastolic();
 
-        if(vect[i].getSystolic() > maxsystolic){
-          maxpressures.clear();
-          maxpressures.push_back(vect[i]);
-          maxsystolic = vect[i].getSystolic();
+        if(vect[i].getSystolic() > maxSystolic){
+          maxPressures.clear();
+          maxPressures.push_back(vect[i]);
+          maxSystolic = vect[i].getSystolic();
         
-        } else if(vect[i].getSystolic() == maxsystolic) {
-          maxpressures.push_back(vect[i]);
+        } else if(vect[i].getSystolic() == maxSystolic) {
+          maxPressures.push_back(vect[i]);
         
         }
         
 
         if(vect[i].getSystolic()>140){
-          std::cout<<"The systolic pressure was high this day. \n";
+          std::cout<<"The systolic pressure was high that day:  \n";
           vect[i].printBlood();
           std::cout << "" << std::endl;
           j++;
         }
       }
-    for(int i = 0; i < maxpressures.size(); i++){
-      std::cout << "test";
-      maxpressures[i].printBlood();
+    for(int i = 0; i < maxPressures.size(); i++){
+      std::cout << "Highest measurement(s): " <<"\n";
+      maxPressures[i].printBlood();
       std::cout << "" << std::endl;
     }
     avg=avg/vect.size();
-    std::cout<<"The average diastolic pressure is : " << avg <<"\n";
+    std::cout<<"The average diastolic pressure is: " << avg <<"\n";
     std::cout << "" << std::endl;
     if(j==0){
-        std::cout<< "No measurement was not too high";
+        std::cout<< "No measurement was not too high" <<"\n";
+        std::cout << "" << std::endl;
     }
   }
 };
@@ -119,7 +118,7 @@ int main() {
     mary.addRecord(Blood(145,89, Date(7,5,2013)));
     mary.printReport();
 
-    Patient john("John");
+  Patient john("John");
     john.addRecord(Blood(88,57, Date(15,5,2013)));
     john.addRecord(Blood(95,61, Date(16,5,2013)));
     john.addRecord(Blood(114,80, Date(17,5,2013)));
@@ -128,7 +127,7 @@ int main() {
     john.addRecord(Blood(176,110, Date(20,5,2013)));
     john.printReport();
 
-    Patient hugo("Hugo");
+  Patient hugo("Hugo");
     hugo.addRecord(Blood(88,250, Date(15,5,2013)));
     hugo.addRecord(Blood(95,200, Date(16,5,2013)));
     hugo.addRecord(Blood(114,80, Date(17,5,2013)));
@@ -136,5 +135,14 @@ int main() {
     hugo.addRecord(Blood(105,104, Date(19,5,2013)));
     hugo.addRecord(Blood(99,110, Date(20,5,2013)));
     hugo.printReport();
+
+  Patient pauline("Pauline");
+    pauline.addRecord(Blood(110,120, Date(31,12,2018)));
+    pauline.addRecord(Blood(110,95, Date(05,7,2019)));
+    pauline.addRecord(Blood(170,120, Date(19,2,2020)));
+    pauline.addRecord(Blood(130,105, Date(18,3,2020)));
+    pauline.addRecord(Blood(101,104, Date(25,5,2020)));
+    pauline.addRecord(Blood(168,110, Date(30,5,2020)));
+    pauline.printReport();
     return 0;
 }
